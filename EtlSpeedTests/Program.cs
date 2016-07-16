@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EtlSpeedTests
+﻿namespace EtlSpeedTests
 {
     class Program
     {
         static void Main(string[] args)
         {
+            // create two csv test data files to load
+            // person file, hobby file
+            // person can have many hobbies
+
+            // push data into target tables, ensuring correctness
+            // tables:
+            // individual (person)
+            // activity (hobby)
+            // properties (for individual and activity)
         }
     }
 }
