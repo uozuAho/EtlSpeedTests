@@ -4,9 +4,7 @@
     {
         static void Main(string[] args)
         {
-            // create two csv test data files to load
-            // person file, hobby file
-            // person can have many hobbies
+            CsvGenerator.CreateFiles();
 
             // push data into target tables, ensuring correctness
             // tables:
