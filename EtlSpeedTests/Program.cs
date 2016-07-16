@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            CsvGenerator.CreateFiles();
+            // DataGenerator.CreateFiles();
 
             // push data into target tables, ensuring correctness
             // tables:

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace EtlSpeedTests
 {
-    class CsvGenerator
+    class DataGenerator
     {
         const string Dir = "C:\\temp";
         public const string PersonFilepath = Dir + "\\Person.csv";
@@ -39,7 +39,7 @@ namespace EtlSpeedTests
             }
         }
 
-        private static IEnumerable<Person> CreatePersonRecords(int num)
+        public static IEnumerable<Person> CreatePersonRecords(int num)
         {
             for (var i = 0; i < num; i++)
             {
@@ -65,7 +65,7 @@ namespace EtlSpeedTests
             }
         }
 
-        private static IEnumerable<Hobby> CreateHobbyRecords(int num)
+        public static IEnumerable<Hobby> CreateHobbyRecords(int num)
         {
             for (var i = 0; i < num; i++)
             {
@@ -79,7 +79,7 @@ namespace EtlSpeedTests
         }
     }
 
-    class Person
+    public class Person
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -90,7 +90,7 @@ namespace EtlSpeedTests
         public int? HobbyId { get; set; }
     }
 
-    class Hobby
+    public class Hobby
     {
         public int Id { get; set; }
         public string Name { get; set; }

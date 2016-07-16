@@ -25,26 +25,31 @@ create table Individual (
     Name nvarchar(50) not null,
     Sex nvarchar(1)
 );
+go
 
 create table Activity(
     Id [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
     Name nvarchar(20),
     HobbyId int
 );
+go
 
 create table IndividualActivity(
     Id [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
-    IndividualId int foreign key references Individual.Id,
-    ActivityId int foreign key references Activity.Id
+    IndividualId int foreign key references Individual(Id),
+    ActivityId int foreign key references Activity(Id)
 );
-
-create table Property(
-    Id [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
-    PropertyTypeId int foreign key references PropertyType.Id,
-    Value nvarchar(20)
-);
+go
 
 create table PropertyType(
     Id [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
     Name nvarchar(20)
 );
+go
+
+create table Property(
+    Id [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
+    PropertyTypeId int foreign key references PropertyType(Id),
+    Value nvarchar(20)
+);
+go

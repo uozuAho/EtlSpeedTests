@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EtlSpeedTestsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="HobbyId" Type="int" />
+        </EntityType>
+        <EntityType Name="Individual">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="IndividualActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IndividualId" Type="int" />
+          <Property Name="ActivityId" Type="int" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PropertyTypeId" Type="int" />
+          <Property Name="Value" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PropertyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__Individua__Activ__15502E78">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndividualActivity">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Individua__Indiv__145C0A3F">
+          <End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
+          <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Individual">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndividualActivity">
+              <PropertyRef Name="IndividualId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Proper__1DE57479">
+          <End Role="PropertyType" Type="Self.PropertyType" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="PropertyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EtlSpeedTestsModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Individual" EntityType="Self.Individual" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndividualActivity" EntityType="Self.IndividualActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PropertyType" EntityType="Self.PropertyType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Individua__Activ__15502E78" Association="Self.FK__Individua__Activ__15502E78">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="IndividualActivity" EntitySet="IndividualActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Individua__Indiv__145C0A3F" Association="Self.FK__Individua__Indiv__145C0A3F">
+            <End Role="Individual" EntitySet="Individual" />
+            <End Role="IndividualActivity" EntitySet="IndividualActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Proper__1DE57479" Association="Self.FK__Property__Proper__1DE57479">
+            <End Role="PropertyType" EntitySet="PropertyType" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EtlSpeedTestsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="HobbyId" Type="Int32" />
+          <NavigationProperty Name="IndividualActivities" Relationship="Self.FK__Individua__Activ__15502E78" FromRole="Activity" ToRole="IndividualActivity" />
+        </EntityType>
+        <EntityType Name="Individual">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IndividualActivities" Relationship="Self.FK__Individua__Indiv__145C0A3F" FromRole="Individual" ToRole="IndividualActivity" />
+        </EntityType>
+        <EntityType Name="IndividualActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IndividualId" Type="Int32" />
+          <Property Name="ActivityId" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__Individua__Activ__15502E78" FromRole="IndividualActivity" ToRole="Activity" />
+          <NavigationProperty Name="Individual" Relationship="Self.FK__Individua__Indiv__145C0A3F" FromRole="IndividualActivity" ToRole="Individual" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyTypeId" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PropertyType" Relationship="Self.FK__Property__Proper__1DE57479" FromRole="Property" ToRole="PropertyType" />
+        </EntityType>
+        <EntityType Name="PropertyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Proper__1DE57479" FromRole="PropertyType" ToRole="Property" />
+        </EntityType>
+        <Association Name="FK__Individua__Activ__15502E78">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndividualActivity">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Individua__Indiv__145C0A3F">
+          <End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
+          <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Individual">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndividualActivity">
+              <PropertyRef Name="IndividualId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Proper__1DE57479">
+          <End Role="PropertyType" Type="Self.PropertyType" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="PropertyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EtlSpeedTestsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activities" EntityType="Self.Activity" />
+          <EntitySet Name="Individuals" EntityType="Self.Individual" />
+          <EntitySet Name="IndividualActivities" EntityType="Self.IndividualActivity" />
+          <EntitySet Name="Properties" EntityType="Self.Property" />
+          <EntitySet Name="PropertyTypes" EntityType="Self.PropertyType" />
+          <AssociationSet Name="FK__Individua__Activ__15502E78" Association="Self.FK__Individua__Activ__15502E78">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="IndividualActivity" EntitySet="IndividualActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Individua__Indiv__145C0A3F" Association="Self.FK__Individua__Indiv__145C0A3F">
+            <End Role="Individual" EntitySet="Individuals" />
+            <End Role="IndividualActivity" EntitySet="IndividualActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Proper__1DE57479" Association="Self.FK__Property__Proper__1DE57479">
+            <End Role="PropertyType" EntitySet="PropertyTypes" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EtlSpeedTestsModelStoreContainer" CdmEntityContainer="EtlSpeedTestsEntities">
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="EtlSpeedTestsModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HobbyId" ColumnName="HobbyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Individuals">
+            <EntityTypeMapping TypeName="EtlSpeedTestsModel.Individual">
+              <MappingFragment StoreEntitySet="Individual">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndividualActivities">
+            <EntityTypeMapping TypeName="EtlSpeedTestsModel.IndividualActivity">
+              <MappingFragment StoreEntitySet="IndividualActivity">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IndividualId" ColumnName="IndividualId" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="EtlSpeedTestsModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PropertyTypeId" ColumnName="PropertyTypeId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PropertyTypes">
+            <EntityTypeMapping TypeName="EtlSpeedTestsModel.PropertyType">
+              <MappingFragment StoreEntitySet="PropertyType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
