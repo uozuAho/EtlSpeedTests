@@ -13,6 +13,8 @@
         <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Activ__15502E78" ManuallyRouted="false" />
         <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Indiv__145C0A3F" ManuallyRouted="false" />
         <AssociationConnector Association="EtlSpeedTestsModel.FK__Property__Proper__1DE57479" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Hobby" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Person" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

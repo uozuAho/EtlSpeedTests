@@ -64,8 +64,8 @@ create table Person (
     LastName nvarchar(20),
     Gender nvarchar(6),
     Address nvarchar(50),
-    Ph. nvarchar(10),
-    Hobby Id int
+    Ph nvarchar(10),
+    HobbyId int
 );
 go
 

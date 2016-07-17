@@ -4,13 +4,33 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EtlSpeedTestsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EtlSpeedTestsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="HobbyId" Type="int" />
+        </EntityType>
+        <EntityType Name="EfEtl_Hobby">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Type" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="EfEtl_Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="6" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ph" Type="nvarchar" MaxLength="10" />
           <Property Name="HobbyId" Type="int" />
         </EntityType>
         <EntityType Name="Individual">
@@ -82,6 +102,8 @@
         </Association>
         <EntityContainer Name="EtlSpeedTestsModelStoreContainer">
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EfEtl_Hobby" EntityType="Self.EfEtl_Hobby" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EfEtl_Person" EntityType="Self.EfEtl_Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Individual" EntityType="Self.Individual" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndividualActivity" EntityType="Self.IndividualActivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
@@ -99,8 +121,7 @@
             <End Role="Property" EntitySet="Property" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EtlSpeedTestsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -203,7 +224,29 @@
             <End Role="PropertyType" EntitySet="PropertyTypes" />
             <End Role="Property" EntitySet="Properties" />
           </AssociationSet>
+          <EntitySet Name="EfEtl_Hobby" EntityType="EtlSpeedTestsModel.EfEtl_Hobby" />
+          <EntitySet Name="EfEtl_Person" EntityType="EtlSpeedTestsModel.EfEtl_Person" />
         </EntityContainer>
+        <EntityType Name="EfEtl_Hobby">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EfEtl_Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ph" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HobbyId" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -251,6 +294,28 @@
               <MappingFragment StoreEntitySet="PropertyType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EfEtl_Hobby">
+            <EntityTypeMapping TypeName="EtlSpeedTestsModel.EfEtl_Hobby">
+              <MappingFragment StoreEntitySet="EfEtl_Hobby">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EfEtl_Person">
+            <EntityTypeMapping TypeName="EtlSpeedTestsModel.EfEtl_Person">
+              <MappingFragment StoreEntitySet="EfEtl_Person">
+                <ScalarProperty Name="HobbyId" ColumnName="HobbyId" />
+                <ScalarProperty Name="Ph" ColumnName="Ph" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

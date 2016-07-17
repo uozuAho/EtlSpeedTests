@@ -52,6 +52,12 @@
     <Compile Include="Models\Activity.cs">
       <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EfEtl_Hobby.cs">
+      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EfEtl_Person.cs">
+      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EtlSpeedTestModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
