@@ -1,16 +1,20 @@
-﻿namespace EtlSpeedTests
+﻿using Etl;
+
+namespace EtlSpeedTests
 {
     class Program
     {
+        const int NumPeople = 5;
+        const int NumHobbies = 1;
+        const string TargetDbConnString = @"Data Source=localhost\sqlexpress2014;Initial Catalog=EtlSpeedTests; Integrated Security=SSPI;";
+
         static void Main(string[] args)
         {
-            // DataGenerator.CreateFiles();
-
-            // push data into target tables, ensuring correctness
-            // tables:
-            // individual (person)
-            // activity (hobby)
-            // properties (for individual and activity)
+            var efEtl = new EfEtl.EfEtl(
+                DataGenerator.CreatePersonRecords(NumPeople), 
+                DataGenerator.CreateHobbyRecords(NumHobbies),
+                TargetDbConnString);
+            efEtl.Run();
         }
     }
 }

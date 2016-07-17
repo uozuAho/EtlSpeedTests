@@ -53,3 +53,27 @@ create table Property(
     Value nvarchar(20)
 );
 go
+
+/*
+These tables aren't needed, but are probably going to be used by many solutions
+as 'input' tables. Modify them to suit your ETL solution's needs.
+
+create table Person (
+    Id int,
+    FirstName nvarchar(20),
+    LastName nvarchar(20),
+    Gender nvarchar(6),
+    Address nvarchar(50),
+    Ph. nvarchar(10),
+    Hobby Id int
+);
+go
+
+create table Hobby (
+    Id int,
+    Name nvarchar(20),
+    Type nvarchar(20)
+);
+go
+
+*/

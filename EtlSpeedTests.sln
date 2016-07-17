@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtlSpeedTests", "EtlSpeedTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfEtl", "EfEtl\EfEtl.csproj", "{5B0A1585-D316-4D2B-89D6-268255E13B06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etl", "Etl\Etl.csproj", "{7DE703E0-6C8C-4839-B90C-667E3FF63640}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5B0A1585-D316-4D2B-89D6-268255E13B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B0A1585-D316-4D2B-89D6-268255E13B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B0A1585-D316-4D2B-89D6-268255E13B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE703E0-6C8C-4839-B90C-667E3FF63640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE703E0-6C8C-4839-B90C-667E3FF63640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE703E0-6C8C-4839-B90C-667E3FF63640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE703E0-6C8C-4839-B90C-667E3FF63640}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

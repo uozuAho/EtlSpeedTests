@@ -26,20 +26,20 @@ Must be able to:
 ## Input files, mapping to destination tables & rules
 
 Person
-- Id (int, PK)     --> Individual property
-- FirstName        --> Individual.Name (concat with lastname)
-- LastName         --> Individual.Name (concat with firstname)
-- Gender (null)    --> Individual.Sex
+- Id (int, PK)              --> Individual property
+- FirstName (nvarchar(20))  --> Individual.Name (concat with lastname)
+- LastName (nvarchar(20))   --> Individual.Name (concat with firstname)
+- Gender (nvarchar(6))      --> Individual.Sex
     + Accepted values: M, F, Male, Female
     + Import if invalid
-- Address (null)   --> Individual property
-- Ph. (null)       --> Individual property
-- Hobby Id (null)  --> Create IndividualActivity link, also add hobby name to Individual property
+- Address (nvarchar(50))    --> Individual property
+- Ph. (nvarchar(10))        --> Individual property, must be numeric
+- Hobby Id (int)            --> Create IndividualActivity link, also add hobby name to Individual property
 
 Hobby
-- Id (int, PK)     --> Activity.HobbyId, also Activity property
-- Name             --> Activity.Name
-- Type (null)      --> Activity property
+- Id (int, PK)              --> Activity.HobbyId, also Activity property
+- Name (nvarchar(20))       --> Activity.Name
+- Type (nvarchar(20))       --> Activity property
 
 Rules
 - Person must have at least one name field populated. Don't import if invalid.
