@@ -26,7 +26,7 @@ Must be able to:
 ## Input files, mapping to destination tables & rules
 
 Person
-- Id (int, PK)              --> Individual property
+- Id (int)                  --> Individual property
 - FirstName (nvarchar(20))  --> Individual.Name (concat with lastname)
 - LastName (nvarchar(20))   --> Individual.Name (concat with firstname)
 - Gender (nvarchar(6))      --> Individual.Sex

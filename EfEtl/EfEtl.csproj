@@ -52,6 +52,8 @@
     <Compile Include="Models\Activity.cs">
       <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Custom\EfEtl_Hobby.cs" />
+    <Compile Include="Models\Custom\EfEtl_Person.cs" />
     <Compile Include="Models\EfEtl_Hobby.cs">
       <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
     </Compile>
@@ -73,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtlSpeedTestModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EtlSpeedTestsEntities.cs" />
     <Compile Include="Models\Individual.cs">
       <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
     </Compile>
@@ -85,6 +88,7 @@
     <Compile Include="Models\PropertyType.cs">
       <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProcessingState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

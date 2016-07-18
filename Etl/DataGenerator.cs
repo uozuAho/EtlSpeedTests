@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Etl.Data.Input;
 using System.Collections.Generic;
 using System.IO;
 
