@@ -3,11 +3,12 @@ using Etl;
 using Etl.Data.Input;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace EfEtl
 {
-    public class EfEtl : IEtl, IDisposable
+    public class EfEtlTool : IEtl, IDisposable
     {
         private readonly IEnumerable<Person> _people;
         private readonly IEnumerable<Hobby> _hobbies;
@@ -15,7 +16,7 @@ namespace EfEtl
 
         private readonly EtlSpeedTestsEntities _db;
 
-        public EfEtl(IEnumerable<Person> people, IEnumerable<Hobby> hobbies, string targetDbConnString)
+        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies, string targetDbConnString)
         {
             _people = people;
             _hobbies = hobbies;
@@ -45,10 +46,10 @@ namespace EfEtl
 
         private void LoadTarget()
         {
-            //foreach (var person in _db.EfEtl_Person.Where(p => p.is))
-            //{
-
-            //}
+            foreach (var person in _db.EfEtl_Person.Where(p => p.ProcessingState == 0))
+            {
+                _db.Individuals.AddOrUpdate(new Individual());
+            }
         }
     }
 }

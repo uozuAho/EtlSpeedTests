@@ -26,11 +26,11 @@ namespace EfEtl.Models
         }
     
         public virtual DbSet<Activity> Activities { get; set; }
+        public virtual DbSet<EfEtl_Hobby> EfEtl_Hobby { get; set; }
+        public virtual DbSet<EfEtl_Person> EfEtl_Person { get; set; }
         public virtual DbSet<Individual> Individuals { get; set; }
         public virtual DbSet<IndividualActivity> IndividualActivities { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
-        public virtual DbSet<EfEtl_Hobby> EfEtl_Hobby { get; set; }
-        public virtual DbSet<EfEtl_Person> EfEtl_Person { get; set; }
     }
 }

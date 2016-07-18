@@ -50,9 +50,9 @@ Rules
 ## Destination tables
 
 Individual
-- Id (int, PK)
+- Id     int, PK
 - Name
-- Sex
+- Sex    nvarchar(1)
 
 Activity
 - Id (int, PK)
@@ -66,9 +66,6 @@ IndividualActivity
 
 Property
 - Id (int, PK)
-- PropertyTypeId
+- IndividualId
+- ActivityId
 - Value
-
-PropertyType
-- Id (int, PK)
-- Name

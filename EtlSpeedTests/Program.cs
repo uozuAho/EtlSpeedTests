@@ -10,7 +10,7 @@ namespace EtlSpeedTests
 
         static void Main(string[] args)
         {
-            var efEtl = new EfEtl.EfEtl(
+            var efEtl = new EfEtl.EfEtlTool(
                 DataGenerator.CreatePersonRecords(NumPeople), 
                 DataGenerator.CreateHobbyRecords(NumHobbies),
                 TargetDbConnString);

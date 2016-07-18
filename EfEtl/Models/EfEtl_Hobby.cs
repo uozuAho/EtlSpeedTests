@@ -14,8 +14,10 @@ namespace EfEtl.Models
     
     public partial class EfEtl_Hobby
     {
-        public int Id { get; set; }
+        public int RowId { get; set; }
+        public Nullable<int> Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+        public int ProcessingState { get; set; }
     }
 }

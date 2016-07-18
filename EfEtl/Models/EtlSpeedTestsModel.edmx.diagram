@@ -4,8 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0d8eed95d22a4ec2a14ee625be4ab56f" Name="Diagram1">
+      <Diagram DiagramId="dda0e324049840db82ec7c2a260f33b5" Name="Diagram1">
         <EntityTypeShape EntityType="EtlSpeedTestsModel.Activity" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Hobby" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Person" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EtlSpeedTestsModel.Individual" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="EtlSpeedTestsModel.IndividualActivity" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EtlSpeedTestsModel.Property" Width="1.5" PointX="5" PointY="3.875" IsExpanded="true" />
@@ -13,8 +15,6 @@
         <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Activ__15502E78" ManuallyRouted="false" />
         <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Indiv__145C0A3F" ManuallyRouted="false" />
         <AssociationConnector Association="EtlSpeedTestsModel.FK__Property__Proper__1DE57479" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Hobby" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Person" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

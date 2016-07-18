@@ -14,12 +14,14 @@ namespace EfEtl.Models
     
     public partial class EfEtl_Person
     {
-        public int Id { get; set; }
+        public int RowId { get; set; }
+        public Nullable<int> Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
         public string Address { get; set; }
         public string Ph { get; set; }
         public Nullable<int> HobbyId { get; set; }
+        public int ProcessingState { get; set; }
     }
 }

@@ -48,70 +48,71 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EfEtl.cs" />
+    <Compile Include="BusinessLayer\Individual.cs" />
+    <Compile Include="EfEtlTool.cs" />
     <Compile Include="Models\Activity.cs">
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Custom\EfEtl_Hobby.cs" />
     <Compile Include="Models\Custom\EfEtl_Person.cs" />
     <Compile Include="Models\EfEtl_Hobby.cs">
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EfEtl_Person.cs">
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EtlSpeedTestModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EtlSpeedTestModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EtlSpeedTestModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EtlSpeedTestModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EtlSpeedTestModel.edmx</DependentUpon>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EtlSpeedTestsEntities.cs" />
+    <Compile Include="Models\EtlSpeedTestsModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtlSpeedTestsModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EtlSpeedTestsModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EtlSpeedTestsModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtlSpeedTestsModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Individual.cs">
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IndividualActivity.cs">
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Property.cs">
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PropertyType.cs">
-      <DependentUpon>EtlSpeedTestModel.tt</DependentUpon>
+      <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProcessingState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Models\EtlSpeedTestModel.edmx">
+    <EntityDeploy Include="Models\EtlSpeedTestsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EtlSpeedTestModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>EtlSpeedTestsModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\EtlSpeedTestModel.edmx.diagram">
-      <DependentUpon>EtlSpeedTestModel.edmx</DependentUpon>
+    <None Include="Models\EtlSpeedTestsModel.edmx.diagram">
+      <DependentUpon>EtlSpeedTestsModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\EtlSpeedTestModel.Context.tt">
+    <Content Include="Models\EtlSpeedTestsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EtlSpeedTestModel.edmx</DependentUpon>
-      <LastGenOutput>EtlSpeedTestModel.Context.cs</LastGenOutput>
+      <DependentUpon>EtlSpeedTestsModel.edmx</DependentUpon>
+      <LastGenOutput>EtlSpeedTestsModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\EtlSpeedTestModel.tt">
+    <Content Include="Models\EtlSpeedTestsModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EtlSpeedTestModel.edmx</DependentUpon>
-      <LastGenOutput>EtlSpeedTestModel.cs</LastGenOutput>
+      <DependentUpon>EtlSpeedTestsModel.edmx</DependentUpon>
+      <LastGenOutput>EtlSpeedTestsModel.cs</LastGenOutput>
     </Content>
     <Content Include="target-db-efetl.sql" />
   </ItemGroup>
