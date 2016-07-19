@@ -16,8 +16,12 @@ namespace EfEtl.Models
     {
         public int Id { get; set; }
         public Nullable<int> PropertyTypeId { get; set; }
+        public Nullable<int> IndividualId { get; set; }
+        public Nullable<int> ActivityId { get; set; }
         public string Value { get; set; }
     
+        public virtual Activity Activity { get; set; }
+        public virtual Individual Individual { get; set; }
         public virtual PropertyType PropertyType { get; set; }
     }
 }

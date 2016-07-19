@@ -18,6 +18,7 @@ namespace EfEtl.Models
         public Individual()
         {
             this.IndividualActivities = new HashSet<IndividualActivity>();
+            this.Properties = new HashSet<Property>();
         }
     
         public int Id { get; set; }
@@ -26,5 +27,7 @@ namespace EfEtl.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IndividualActivity> IndividualActivities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Property> Properties { get; set; }
     }
 }

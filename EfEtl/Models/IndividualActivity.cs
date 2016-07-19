@@ -15,8 +15,8 @@ namespace EfEtl.Models
     public partial class IndividualActivity
     {
         public int Id { get; set; }
-        public Nullable<int> IndividualId { get; set; }
-        public Nullable<int> ActivityId { get; set; }
+        public int IndividualId { get; set; }
+        public int ActivityId { get; set; }
     
         public virtual Activity Activity { get; set; }
         public virtual Individual Individual { get; set; }

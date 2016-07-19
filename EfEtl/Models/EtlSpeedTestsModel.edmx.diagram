@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dda0e324049840db82ec7c2a260f33b5" Name="Diagram1">
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.Activity" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Hobby" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Person" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.Individual" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.IndividualActivity" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.Property" Width="1.5" PointX="5" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EtlSpeedTestsModel.PropertyType" Width="1.5" PointX="2.75" PointY="4" IsExpanded="true" />
-        <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Activ__15502E78" ManuallyRouted="false" />
-        <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Indiv__145C0A3F" ManuallyRouted="false" />
-        <AssociationConnector Association="EtlSpeedTestsModel.FK__Property__Proper__1DE57479" ManuallyRouted="false" />
+      <Diagram DiagramId="2c93e16d19264d3ba89b74072c5c0fae" Name="Diagram1">
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.Activity" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Hobby" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.EfEtl_Person" Width="1.5" PointX="2.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.Individual" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.IndividualActivity" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.Property" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EtlSpeedTestsModel.PropertyType" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Activ__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="EtlSpeedTestsModel.FK__Property__Activi__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="EtlSpeedTestsModel.FK__Individua__Indiv__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="EtlSpeedTestsModel.FK__Property__Indivi__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="EtlSpeedTestsModel.FK__Property__Proper__1B0907CE" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

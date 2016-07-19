@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfEtl", "EfEtl\EfEtl.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etl", "Etl\Etl.csproj", "{7DE703E0-6C8C-4839-B90C-667E3FF63640}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfEtl.Test", "EfEtl.Test\EfEtl.Test.csproj", "{FAD7B909-3C55-4E7F-B303-C303F9E452E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7DE703E0-6C8C-4839-B90C-667E3FF63640}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DE703E0-6C8C-4839-B90C-667E3FF63640}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DE703E0-6C8C-4839-B90C-667E3FF63640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAD7B909-3C55-4E7F-B303-C303F9E452E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAD7B909-3C55-4E7F-B303-C303F9E452E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAD7B909-3C55-4E7F-B303-C303F9E452E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAD7B909-3C55-4E7F-B303-C303F9E452E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

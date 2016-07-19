@@ -26,7 +26,7 @@ Must be able to:
 ## Input files, mapping to destination tables & rules
 
 Person
-- Id (int)                  --> Individual property
+- Id (int)                  --> Individual.Id
 - FirstName (nvarchar(20))  --> Individual.Name (concat with lastname)
 - LastName (nvarchar(20))   --> Individual.Name (concat with firstname)
 - Gender (nvarchar(6))      --> Individual.Sex
@@ -51,21 +51,26 @@ Rules
 
 Individual
 - Id     int, PK
-- Name
+- Name   nvarchar(35) not null
 - Sex    nvarchar(1)
 
 Activity
-- Id (int, PK)
+- Id       int, PK
 - HobbyId
-- Name
+- Name     nvarchar(20)
 
 IndividualActivity
 - Id (int, PK)
 - IndividualId
 - ActivityId
 
+PropertyType
+- Id
+- Value
+
 Property
-- Id (int, PK)
+- Id             int, PK
+- PropertyTypeId
 - IndividualId
 - ActivityId
-- Value
+- Value          nvarchar(20)

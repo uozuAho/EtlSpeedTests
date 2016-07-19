@@ -42,7 +42,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="35" Nullable="false" />
           <Property Name="Sex" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="IndividualActivity">
@@ -50,8 +50,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IndividualId" Type="int" />
-          <Property Name="ActivityId" Type="int" />
+          <Property Name="IndividualId" Type="int" Nullable="false" />
+          <Property Name="ActivityId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -59,6 +59,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PropertyTypeId" Type="int" />
+          <Property Name="IndividualId" Type="int" />
+          <Property Name="ActivityId" Type="int" />
           <Property Name="Value" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="PropertyType">
@@ -66,10 +68,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Value" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <Association Name="FK__Individua__Activ__15502E78">
-          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+        <Association Name="FK__Individua__Activ__164452B1">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
           <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Activity">
@@ -80,8 +82,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Individua__Indiv__145C0A3F">
-          <End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
+        <Association Name="FK__Individua__Indiv__15502E78">
+          <End Role="Individual" Type="Self.Individual" Multiplicity="1" />
           <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Individual">
@@ -92,7 +94,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Property__Proper__1DE57479">
+        <Association Name="FK__Property__Activi__1CF15040">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Indivi__1BFD2C07">
+          <End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Individual">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="IndividualId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Proper__1B0907CE">
           <End Role="PropertyType" Type="Self.PropertyType" Multiplicity="0..1" />
           <End Role="Property" Type="Self.Property" Multiplicity="*" />
           <ReferentialConstraint>
@@ -112,15 +138,23 @@
           <EntitySet Name="IndividualActivity" EntityType="Self.IndividualActivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PropertyType" EntityType="Self.PropertyType" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Individua__Activ__15502E78" Association="Self.FK__Individua__Activ__15502E78">
+          <AssociationSet Name="FK__Individua__Activ__164452B1" Association="Self.FK__Individua__Activ__164452B1">
             <End Role="Activity" EntitySet="Activity" />
             <End Role="IndividualActivity" EntitySet="IndividualActivity" />
           </AssociationSet>
-          <AssociationSet Name="FK__Individua__Indiv__145C0A3F" Association="Self.FK__Individua__Indiv__145C0A3F">
+          <AssociationSet Name="FK__Individua__Indiv__15502E78" Association="Self.FK__Individua__Indiv__15502E78">
             <End Role="Individual" EntitySet="Individual" />
             <End Role="IndividualActivity" EntitySet="IndividualActivity" />
           </AssociationSet>
-          <AssociationSet Name="FK__Property__Proper__1DE57479" Association="Self.FK__Property__Proper__1DE57479">
+          <AssociationSet Name="FK__Property__Activi__1CF15040" Association="Self.FK__Property__Activi__1CF15040">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Indivi__1BFD2C07" Association="Self.FK__Property__Indivi__1BFD2C07">
+            <End Role="Individual" EntitySet="Individual" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Proper__1B0907CE" Association="Self.FK__Property__Proper__1B0907CE">
             <End Role="PropertyType" EntitySet="PropertyType" />
             <End Role="Property" EntitySet="Property" />
           </AssociationSet>
@@ -137,7 +171,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="HobbyId" Type="Int32" />
-          <NavigationProperty Name="IndividualActivities" Relationship="Self.FK__Individua__Activ__15502E78" FromRole="Activity" ToRole="IndividualActivity" />
+          <NavigationProperty Name="IndividualActivities" Relationship="Self.FK__Individua__Activ__164452B1" FromRole="Activity" ToRole="IndividualActivity" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Activi__1CF15040" FromRole="Activity" ToRole="Property" />
         </EntityType>
         <EntityType Name="EfEtl_Hobby">
           <Key>
@@ -168,19 +203,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Sex" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="IndividualActivities" Relationship="Self.FK__Individua__Indiv__145C0A3F" FromRole="Individual" ToRole="IndividualActivity" />
+          <NavigationProperty Name="IndividualActivities" Relationship="Self.FK__Individua__Indiv__15502E78" FromRole="Individual" ToRole="IndividualActivity" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Indivi__1BFD2C07" FromRole="Individual" ToRole="Property" />
         </EntityType>
         <EntityType Name="IndividualActivity">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IndividualId" Type="Int32" />
-          <Property Name="ActivityId" Type="Int32" />
-          <NavigationProperty Name="Activity" Relationship="Self.FK__Individua__Activ__15502E78" FromRole="IndividualActivity" ToRole="Activity" />
-          <NavigationProperty Name="Individual" Relationship="Self.FK__Individua__Indiv__145C0A3F" FromRole="IndividualActivity" ToRole="Individual" />
+          <Property Name="IndividualId" Type="Int32" Nullable="false" />
+          <Property Name="ActivityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__Individua__Activ__164452B1" FromRole="IndividualActivity" ToRole="Activity" />
+          <NavigationProperty Name="Individual" Relationship="Self.FK__Individua__Indiv__15502E78" FromRole="IndividualActivity" ToRole="Individual" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -188,19 +224,23 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PropertyTypeId" Type="Int32" />
+          <Property Name="IndividualId" Type="Int32" />
+          <Property Name="ActivityId" Type="Int32" />
           <Property Name="Value" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PropertyType" Relationship="Self.FK__Property__Proper__1DE57479" FromRole="Property" ToRole="PropertyType" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__Property__Activi__1CF15040" FromRole="Property" ToRole="Activity" />
+          <NavigationProperty Name="Individual" Relationship="Self.FK__Property__Indivi__1BFD2C07" FromRole="Property" ToRole="Individual" />
+          <NavigationProperty Name="PropertyType" Relationship="Self.FK__Property__Proper__1B0907CE" FromRole="Property" ToRole="PropertyType" />
         </EntityType>
         <EntityType Name="PropertyType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Proper__1DE57479" FromRole="PropertyType" ToRole="Property" />
+          <Property Name="Value" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK__Property__Proper__1B0907CE" FromRole="PropertyType" ToRole="Property" />
         </EntityType>
-        <Association Name="FK__Individua__Activ__15502E78">
-          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+        <Association Name="FK__Individua__Activ__164452B1">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
           <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Activity">
@@ -211,8 +251,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Individua__Indiv__145C0A3F">
-          <End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
+        <Association Name="FK__Property__Activi__1CF15040">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Individua__Indiv__15502E78">
+          <End Role="Individual" Type="Self.Individual" Multiplicity="1" />
           <End Role="IndividualActivity" Type="Self.IndividualActivity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Individual">
@@ -223,7 +275,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Property__Proper__1DE57479">
+        <Association Name="FK__Property__Indivi__1BFD2C07">
+          <End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Individual">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="IndividualId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Property__Proper__1B0907CE">
           <End Role="PropertyType" Type="Self.PropertyType" Multiplicity="0..1" />
           <End Role="Property" Type="Self.Property" Multiplicity="*" />
           <ReferentialConstraint>
@@ -243,15 +307,23 @@
           <EntitySet Name="IndividualActivities" EntityType="Self.IndividualActivity" />
           <EntitySet Name="Properties" EntityType="Self.Property" />
           <EntitySet Name="PropertyTypes" EntityType="Self.PropertyType" />
-          <AssociationSet Name="FK__Individua__Activ__15502E78" Association="Self.FK__Individua__Activ__15502E78">
+          <AssociationSet Name="FK__Individua__Activ__164452B1" Association="Self.FK__Individua__Activ__164452B1">
             <End Role="Activity" EntitySet="Activities" />
             <End Role="IndividualActivity" EntitySet="IndividualActivities" />
           </AssociationSet>
-          <AssociationSet Name="FK__Individua__Indiv__145C0A3F" Association="Self.FK__Individua__Indiv__145C0A3F">
+          <AssociationSet Name="FK__Property__Activi__1CF15040" Association="Self.FK__Property__Activi__1CF15040">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Individua__Indiv__15502E78" Association="Self.FK__Individua__Indiv__15502E78">
             <End Role="Individual" EntitySet="Individuals" />
             <End Role="IndividualActivity" EntitySet="IndividualActivities" />
           </AssociationSet>
-          <AssociationSet Name="FK__Property__Proper__1DE57479" Association="Self.FK__Property__Proper__1DE57479">
+          <AssociationSet Name="FK__Property__Indivi__1BFD2C07" Association="Self.FK__Property__Indivi__1BFD2C07">
+            <End Role="Individual" EntitySet="Individuals" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Property__Proper__1B0907CE" Association="Self.FK__Property__Proper__1B0907CE">
             <End Role="PropertyType" EntitySet="PropertyTypes" />
             <End Role="Property" EntitySet="Properties" />
           </AssociationSet>
@@ -320,6 +392,8 @@
               <MappingFragment StoreEntitySet="Property">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PropertyTypeId" ColumnName="PropertyTypeId" />
+                <ScalarProperty Name="IndividualId" ColumnName="IndividualId" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -328,7 +402,7 @@
             <EntityTypeMapping TypeName="EtlSpeedTestsModel.PropertyType">
               <MappingFragment StoreEntitySet="PropertyType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLayer\Individual.cs" />
+    <Compile Include="BusinessLayer\HobbyToActivity.cs" />
+    <Compile Include="BusinessLayer\PersonToIndividual.cs" />
     <Compile Include="EfEtlTool.cs" />
     <Compile Include="Models\Activity.cs">
       <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
@@ -91,6 +92,7 @@
     </Compile>
     <Compile Include="ProcessingState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TargetDbData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -104,6 +106,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Etl\Etl.csproj">
+      <Project>{7de703e0-6c8c-4839-b90c-667e3ff63640}</Project>
+      <Name>Etl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\EtlSpeedTestsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EtlSpeedTestsModel.edmx</DependentUpon>
@@ -114,16 +125,6 @@
       <DependentUpon>EtlSpeedTestsModel.edmx</DependentUpon>
       <LastGenOutput>EtlSpeedTestsModel.cs</LastGenOutput>
     </Content>
-    <Content Include="target-db-efetl.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Etl\Etl.csproj">
-      <Project>{7de703e0-6c8c-4839-b90c-667e3ff63640}</Project>
-      <Name>Etl</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
