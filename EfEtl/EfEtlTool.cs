@@ -1,4 +1,5 @@
-﻿using EfEtl.Models;
+﻿using EfEtl.BusinessLayer;
+using EfEtl.Models;
 using Etl;
 using Etl.Data.Input;
 using System;
@@ -12,21 +13,22 @@ namespace EfEtl
     {
         private readonly IEnumerable<Person> _people;
         private readonly IEnumerable<Hobby> _hobbies;
-        private readonly string _targetDbConnstring;
 
         private readonly EtlSpeedTestsEntities _db;
 
-        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies, string targetDbConnString)
+        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies)
         {
             _people = people;
             _hobbies = hobbies;
-            _targetDbConnstring = targetDbConnString;
-            _db = new EtlSpeedTestsEntities(targetDbConnString);
+            _db = new EtlSpeedTestsEntities();
+            // 
+            TargetDbData.Initialise(_db);
         }
 
         public void Run()
         {
             LoadInputTables();
+            LoadTarget();
         }
 
         public void Dispose()
@@ -46,9 +48,16 @@ namespace EfEtl
 
         private void LoadTarget()
         {
-            foreach (var person in _db.EfEtl_Person.Where(p => p.ProcessingState == 0))
+            EfEtl_Person person;
+            while ((person = _db.EfEtl_Person.FirstOrDefault(p => p.ProcessingState == 0)) != null)
             {
-                _db.Individuals.AddOrUpdate(new Individual());
+                _db.Individuals.AddOrUpdate(PersonToIndividual.NewIndividual(person));
+                foreach (var property in PersonToIndividual.GetIndividualProperties(person))
+                {
+                    _db.Properties.AddOrUpdate(property);
+                }
+                person.ProcessingState = (int) ProcessingState.Processed;
+                _db.SaveChanges();
             }
         }
     }

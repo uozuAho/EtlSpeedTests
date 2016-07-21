@@ -3,6 +3,6 @@
     enum ProcessingState
     {
         Default,
-        Asdf
+        Processed
     }
 }

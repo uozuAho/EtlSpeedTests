@@ -17,11 +17,11 @@ namespace EfEtl
         public static TargetDbData GetInstance()
         {
             if (_instance == null)
-                throw new InvalidOperationException("Must initialise with context");
+                throw new InvalidOperationException("Must call Initialise before using GetInstance");
             return _instance;
         }
 
-        public static TargetDbData GetInstance(EtlSpeedTestsEntities context)
+        public static TargetDbData Initialise(EtlSpeedTestsEntities context)
         {
             if (_instance == null)
                 _instance = new TargetDbData(context);

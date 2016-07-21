@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace EfEtl.BusinessLayer
 {
-    public class PersonToIndividual
+    public static class PersonToIndividual
     {
         public static Individual NewIndividual(EfEtl_Person person)
         {

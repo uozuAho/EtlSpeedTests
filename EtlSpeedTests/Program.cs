@@ -10,10 +10,10 @@ namespace EtlSpeedTests
 
         static void Main(string[] args)
         {
+            // efetl tool's connstring is in the etl's app.config
             var efEtl = new EfEtl.EfEtlTool(
                 DataGenerator.CreatePersonRecords(NumPeople), 
-                DataGenerator.CreateHobbyRecords(NumHobbies),
-                TargetDbConnString);
+                DataGenerator.CreateHobbyRecords(NumHobbies));
             efEtl.Run();
         }
     }
