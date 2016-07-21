@@ -1,1 +1,4 @@
+- efetl: how to make ef-generated context implement an interface the allows
+  faking??? Is it worth it? Many SO answers say not to do it, and stick with
+  integration tests that use a test database.
 - ensure initial database size is big enough to prevent growth during tests

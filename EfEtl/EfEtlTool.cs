@@ -16,13 +16,17 @@ namespace EfEtl
 
         private readonly EtlSpeedTestsEntities _db;
 
-        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies)
+        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies) 
+            : this(people, hobbies, new EtlSpeedTestsEntities())
+        {
+        }
+
+        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies, EtlSpeedTestsEntities context)
         {
             _people = people;
             _hobbies = hobbies;
-            _db = new EtlSpeedTestsEntities();
-            // 
-            TargetDbData.Initialise(_db);
+            _db = context;
+            TargetDbData.Initialise(context);
         }
 
         public void Run()

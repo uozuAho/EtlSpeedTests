@@ -78,6 +78,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtlSpeedTestsModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\IEtlSpeedTestsContext.cs" />
     <Compile Include="Models\Individual.cs">
       <DependentUpon>EtlSpeedTestsModel.tt</DependentUpon>
     </Compile>
