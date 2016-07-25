@@ -7,10 +7,10 @@ using System.Linq;
 namespace EfEtl.Test.Fakes
 {
     /// <summary>
-    /// Copied verbatim from https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/
+    /// Initially copied from https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/,
+    /// modified with hints from https://msdn.microsoft.com/en-us/data/dn314431.aspx
     /// </summary>
-    public class FakeDbSet<T> : IDbSet<T>
-    where T : class
+    public class FakeDbSet<T> : DbSet<T>, IQueryable, IEnumerable<T> where T : class
     {
         ObservableCollection<T> _data;
         IQueryable _query;
@@ -21,46 +21,42 @@ namespace EfEtl.Test.Fakes
             _query = _data.AsQueryable();
         }
 
-        public virtual T Find(params object[] keyValues)
-        {
-            throw new NotImplementedException("Derive from FakeDbSet<T> and override Find");
-        }
-
-        public T Add(T item)
+        public override T Add(T item)
         {
             _data.Add(item);
             return item;
         }
 
-        public T Remove(T item)
+        public override IEnumerable<T> AddRange(IEnumerable<T> items)
+        {
+            foreach (var item in items)
+                _data.Add(item);
+            return items;
+        }
+
+        public override T Remove(T item)
         {
             _data.Remove(item);
             return item;
         }
 
-        public T Attach(T item)
+        public override T Attach(T item)
         {
             _data.Add(item);
             return item;
         }
 
-        public T Detach(T item)
-        {
-            _data.Remove(item);
-            return item;
-        }
-
-        public T Create()
+        public override T Create()
         {
             return Activator.CreateInstance<T>();
         }
 
-        public TDerivedEntity Create<TDerivedEntity>() where TDerivedEntity : class, T
+        public override TDerivedEntity Create<TDerivedEntity>()
         {
             return Activator.CreateInstance<TDerivedEntity>();
         }
 
-        public ObservableCollection<T> Local
+        public override ObservableCollection<T> Local
         {
             get { return _data; }
         }

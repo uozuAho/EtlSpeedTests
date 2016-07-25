@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataGenerator.cs" />
@@ -44,6 +45,7 @@
     <Compile Include="Data\Input\Person.cs" />
     <Compile Include="IEtl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

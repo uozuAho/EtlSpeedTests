@@ -21,14 +21,14 @@ namespace EfEtl
             return _instance;
         }
 
-        public static TargetDbData Initialise(EtlSpeedTestsEntities context)
+        public static TargetDbData Initialise(IEtlSpeedTestsContext context)
         {
             if (_instance == null)
                 _instance = new TargetDbData(context);
             return _instance;
         }
 
-        private TargetDbData(EtlSpeedTestsEntities context)
+        private TargetDbData(IEtlSpeedTestsContext context)
         {
             PropertyTypes = new Dictionary<string, PropertyType>();
             foreach (var pt in context.PropertyTypes)

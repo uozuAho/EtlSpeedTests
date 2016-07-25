@@ -14,14 +14,14 @@ namespace EfEtl
         private readonly IEnumerable<Person> _people;
         private readonly IEnumerable<Hobby> _hobbies;
 
-        private readonly EtlSpeedTestsEntities _db;
+        private readonly IEtlSpeedTestsContext _db;
 
         public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies) 
             : this(people, hobbies, new EtlSpeedTestsEntities())
         {
         }
 
-        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies, EtlSpeedTestsEntities context)
+        public EfEtlTool(IEnumerable<Person> people, IEnumerable<Hobby> hobbies, IEtlSpeedTestsContext context)
         {
             _people = people;
             _hobbies = hobbies;
@@ -55,6 +55,7 @@ namespace EfEtl
             EfEtl_Person person;
             while ((person = _db.EfEtl_Person.FirstOrDefault(p => p.ProcessingState == 0)) != null)
             {
+                var existing = _db.Individuals.Find(person.Id);
                 _db.Individuals.AddOrUpdate(PersonToIndividual.NewIndividual(person));
                 foreach (var property in PersonToIndividual.GetIndividualProperties(person))
                 {

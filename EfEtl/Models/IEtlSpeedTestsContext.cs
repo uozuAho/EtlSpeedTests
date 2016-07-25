@@ -1,16 +1,17 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 
 namespace EfEtl.Models
 {
-    interface IEtlSpeedTestsContext
+    public interface IEtlSpeedTestsContext : IDisposable
     {
-        IDbSet<Activity> Activities { get; }
-        IDbSet<EfEtl_Hobby> EfEtl_Hobby { get; }
-        IDbSet<EfEtl_Person> EfEtl_Person { get; }
-        IDbSet<Individual> Individuals { get; }
-        IDbSet<IndividualActivity> IndividualActivities { get; }
-        IDbSet<Property> Properties { get; }
-        IDbSet<PropertyType> PropertyTypes { get; }
+        DbSet<Activity> Activities { get; }
+        DbSet<EfEtl_Hobby> EfEtl_Hobby { get; }
+        DbSet<EfEtl_Person> EfEtl_Person { get; }
+        DbSet<Individual> Individuals { get; }
+        DbSet<IndividualActivity> IndividualActivities { get; }
+        DbSet<Property> Properties { get; }
+        DbSet<PropertyType> PropertyTypes { get; }
 
         int SaveChanges();
     }

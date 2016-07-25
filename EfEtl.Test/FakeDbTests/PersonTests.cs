@@ -1,5 +1,8 @@
-﻿using Etl.Data.Input;
+﻿using EfEtl.Models;
+using EfEtl.Test.Fakes;
+using Etl.Data.Input;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace EfEtl.Test.FakeDbTests
@@ -24,8 +27,20 @@ namespace EfEtl.Test.FakeDbTests
                 }
             };
 
-            var efetl = new EfEtlTool(people, new List<Hobby>());
+            var db = new FakeEtlSpeedTestsContext();
+            db.PropertyTypes.AddRange(new List<PropertyType>
+            {
+                new PropertyType { Value = "Address" },
+                new PropertyType { Value = "Ph." },
+                new PropertyType { Value = "Hobby name" },
+                new PropertyType { Value = "Hobby Id" },
+                new PropertyType { Value = "Hobby Type" }
+            });
+
+            var efetl = new EfEtlTool(people, new List<Hobby>(), db);
             efetl.Run();
+
+            // TODO: asserts
         }
     }
 }

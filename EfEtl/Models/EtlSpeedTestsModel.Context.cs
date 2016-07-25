@@ -13,7 +13,7 @@ namespace EfEtl.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EtlSpeedTestsEntities : DbContext
+    public partial class EtlSpeedTestsEntities : DbContext, IEtlSpeedTestsContext
     {
         public EtlSpeedTestsEntities()
             : base("name=EtlSpeedTestsEntities")
