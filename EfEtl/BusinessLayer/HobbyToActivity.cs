@@ -14,6 +14,16 @@ namespace EfEtl.BusinessLayer
             };
         }
 
+        /// <summary>
+        /// Update an existing activity with data from another one.
+        /// </summary>
+        /// <returns>The updated existing record</returns>
+        public static void UpdateExisting(Activity existing, Activity updated)
+        {
+            existing.HobbyId = updated.HobbyId;
+            existing.Name = updated.Name;
+        }
+
         public static IEnumerable<Property> GetActivityProperties(EfEtl_Hobby hobby, int activityId)
         {
             var targetData = TargetDbData.GetInstance();

@@ -1,5 +1,6 @@
 ﻿using EfEtl.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -16,6 +17,20 @@ namespace EfEtl.Test.Fakes
             IndividualActivities = new FakeIndividualActivitySet();
             Properties = new FakePropertySet();
             PropertyTypes = new FakePropertyTypeSet();
+        }
+
+        public static FakeEtlSpeedTestsContext NewWithPropertyTypes()
+        {
+            var context = new FakeEtlSpeedTestsContext();
+            context.PropertyTypes.AddRange(new List<PropertyType>
+            {
+                new PropertyType { Value = "Address" },
+                new PropertyType { Value = "Ph." },
+                new PropertyType { Value = "Hobby name" },
+                new PropertyType { Value = "Hobby Id" },
+                new PropertyType { Value = "Hobby Type" }
+            });
+            return context;
         }
 
         public DbSet<Activity> Activities { get; set; }

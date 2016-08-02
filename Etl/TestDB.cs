@@ -2,7 +2,7 @@
 
 namespace EfEtl.Test
 {
-    class TestDb
+    public class TestDb
     {
         private const string ConnString = @"Data Source=localhost\sqlexpress2014;Initial Catalog=EtlSpeedTests; Integrated Security=SSPI;";
 
@@ -13,15 +13,17 @@ namespace EfEtl.Test
         {
             using (var con = new SqlConnection(ConnString))
             {
+                con.Open();
                 var cmd = con.CreateCommand();
                 cmd.CommandText =
-                   @"delete from Individual;
+                   @"delete from Property;
+                     delete from Individual;
                      delete from Activity;
                      truncate table IndividualActivity;
-                     delete from Property;
                      truncate table EfEtl_Person;
                      truncate table EfEtl_Hobby;";
                 cmd.ExecuteNonQuery();
+                con.Close();
             }
         }
     }

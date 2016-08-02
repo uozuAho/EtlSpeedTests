@@ -1,20 +1,37 @@
-﻿using Etl;
+﻿using EfEtl.Test;
+using Etl;
+using System;
+using System.Diagnostics;
 
 namespace EtlSpeedTests
 {
     class Program
     {
-        const int NumPeople = 5;
-        const int NumHobbies = 1;
+        const int NumPeople = 100;
+        const int NumHobbies = 50;
         const string TargetDbConnString = @"Data Source=localhost\sqlexpress2014;Initial Catalog=EtlSpeedTests; Integrated Security=SSPI;";
 
         static void Main(string[] args)
         {
+            Console.WriteLine($"Etl speed tests. Num people: {NumPeople}, num hobbies: {NumHobbies}");
             // efetl tool's connstring is in the etl's app.config
-            var efEtl = new EfEtl.EfEtlTool(
-                DataGenerator.CreatePersonRecords(NumPeople), 
-                DataGenerator.CreateHobbyRecords(NumHobbies));
-            efEtl.Run();
+            RunImport("EF etl", new EfEtl.EfEtlTool(
+                DataGenerator.CreatePersonRecords(NumPeople),
+                DataGenerator.CreateHobbyRecords(NumHobbies)));
+
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+
+        private static void RunImport(string name, IEtl etl)
+        {
+            Console.WriteLine($"{name}: clearing test db");
+            TestDb.Clear();
+            Console.WriteLine($"{name}: start");
+            var sw = Stopwatch.StartNew();
+            etl.Run();
+            var ms = sw.ElapsedMilliseconds;
+            Console.WriteLine($"{name}: stop. Time (ms): {ms}");
         }
     }
 }

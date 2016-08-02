@@ -45,7 +45,7 @@ Rules
 - Person must have at least one name field populated. Don't import if invalid.
 - Person can be added to multiple hobbies by multiple lines in the person file,
   containing only person id and hobby id
-- Hobby Id must link to a hobby in the hobby input file. Import if invalid.
+- Person.Hobby Id must link to a hobby in the hobby input file. Import if invalid.
 
 ## Destination tables
 
@@ -56,7 +56,7 @@ Individual
 
 Activity
 - Id       int, PK
-- HobbyId
+- HobbyId  int unique
 - Name     nvarchar(20)
 
 IndividualActivity

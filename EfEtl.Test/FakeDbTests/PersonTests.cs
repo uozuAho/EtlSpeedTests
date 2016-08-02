@@ -1,9 +1,8 @@
-﻿using EfEtl.Models;
-using EfEtl.Test.Fakes;
+﻿using EfEtl.Test.Fakes;
 using Etl.Data.Input;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EfEtl.Test.FakeDbTests
 {
@@ -11,7 +10,7 @@ namespace EfEtl.Test.FakeDbTests
     public class PersonTests
     {
         [Test]
-        public void asdf()
+        public void OnePersonOneHobbyFullRun()
         {
             var people = new List<Person>
             {
@@ -27,20 +26,30 @@ namespace EfEtl.Test.FakeDbTests
                 }
             };
 
-            var db = new FakeEtlSpeedTestsContext();
-            db.PropertyTypes.AddRange(new List<PropertyType>
+            var hobbies = new List<Hobby>
             {
-                new PropertyType { Value = "Address" },
-                new PropertyType { Value = "Ph." },
-                new PropertyType { Value = "Hobby name" },
-                new PropertyType { Value = "Hobby Id" },
-                new PropertyType { Value = "Hobby Type" }
-            });
+                new Hobby
+                {
+                    Id = 1,
+                    Name = "hob",
+                    Type = "sport"
+                }
+            };
 
-            var efetl = new EfEtlTool(people, new List<Hobby>(), db);
+            var db = FakeEtlSpeedTestsContext.NewWithPropertyTypes();
+
+            var efetl = new EfEtlTool(people, hobbies, db);
             efetl.Run();
 
-            // TODO: asserts
+            var indv = db.Individuals.Single();
+            Assert.AreEqual(1, indv.Id);
+            Assert.AreEqual("a b", indv.Name);
+            Assert.AreEqual("M", indv.Sex);
+
+            var act = db.Activities.Single();
+            // Assert.AreEqual(1, act.Id); ??
+            Assert.AreEqual("hob", act.Name);
+            Assert.AreEqual(1, act.HobbyId);
         }
     }
 }
