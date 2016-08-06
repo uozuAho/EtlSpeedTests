@@ -19,6 +19,7 @@ namespace EfEtl
     /// - Right click on Models directory, add new ADO.NET Entity model
     /// - Name EtlSpeedTestsModel
     /// - Continue with defaults
+    /// - Once done, add the IEtlSpeedTestsContext interface to EtlSpeedTestsModel.Context.cs
     /// </summary>
     public class EfEtlTool : IEtl, IDisposable
     {

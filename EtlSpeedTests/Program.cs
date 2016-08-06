@@ -1,4 +1,5 @@
-﻿using EfEtl.Test;
+﻿using BulkEtl;
+using EfEtl.Test;
 using Etl;
 using System;
 using System.Diagnostics;
@@ -15,9 +16,14 @@ namespace EtlSpeedTests
         {
             Console.WriteLine($"Etl speed tests. Num people: {NumPeople}, num hobbies: {NumHobbies}");
             // efetl tool's connstring is in the etl's app.config
-            RunImport("EF etl", new EfEtl.EfEtlTool(
+            //RunImport("EF etl", new EfEtl.EfEtlTool(
+            //    DataGenerator.CreatePersonRecords(NumPeople),
+            //    DataGenerator.CreateHobbyRecords(NumHobbies)));
+
+            RunImport("Bulk etl", new BulkEtlTool(
                 DataGenerator.CreatePersonRecords(NumPeople),
-                DataGenerator.CreateHobbyRecords(NumHobbies)));
+                DataGenerator.CreateHobbyRecords(NumHobbies),
+                TargetDbConnString));
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

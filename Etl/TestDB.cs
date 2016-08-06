@@ -21,7 +21,9 @@ namespace EfEtl.Test
                      delete from Activity;
                      truncate table IndividualActivity;
                      truncate table EfEtl_Person;
-                     truncate table EfEtl_Hobby;";
+                     truncate table EfEtl_Hobby;
+                     truncate table BulkEtl_Person;
+                     truncate table BulkEtl_Hobby;";
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
