@@ -3,6 +3,7 @@
     enum ProcessingState
     {
         Default,
-        Processed
+        InsertedToTarget,
+        ActivityLinkInserted
     }
 }

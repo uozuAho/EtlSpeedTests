@@ -10,7 +10,15 @@ using System.Linq;
 namespace EfEtl
 {
     /// <summary>
-    /// ETL application implemented using Entity Framework (EF)
+    /// ETL application implemented using Entity Framework (EF).
+    /// 
+    /// To update the EF model:
+    /// - Try 'update from database' from menu after right clicking on the edmx diagram. This usually fails though.
+    /// - Delete EtlSpeedTestsModel.edmx
+    /// - Remove the connection string from App.config
+    /// - Right click on Models directory, add new ADO.NET Entity model
+    /// - Name EtlSpeedTestsModel
+    /// - Continue with defaults
     /// </summary>
     public class EfEtlTool : IEtl, IDisposable
     {
@@ -71,19 +79,22 @@ namespace EfEtl
         private void LoadTarget()
         {
             LoadIndividualTarget();
+            LoadActivityTarget();
+            CreateIndividualActivityLinks();
         }
 
         private void LoadIndividualTarget()
         {
             EfEtl_Person person;
-            while ((person = _db.EfEtl_Person.FirstOrDefault(p => p.ProcessingState == 0)) != null)
+            while ((person = _db.EfEtl_Person.FirstOrDefault(p => p.ProcessingState == (int)ProcessingState.Default)) != null)
             {
-                _db.Individuals.AddOrUpdate(PersonToIndividual.NewIndividual(person));
+                var indv = PersonToIndividual.NewIndividual(person);
+                _db.Individuals.AddOrUpdate(indv);
                 foreach (var property in PersonToIndividual.GetIndividualProperties(person))
                 {
                     _db.Properties.AddOrUpdate(property);
                 }
-                person.ProcessingState = (int)ProcessingState.Processed;
+                person.ProcessingState = (int)ProcessingState.InsertedToTarget;
                 _db.SaveChanges();
             }
         }
@@ -91,7 +102,7 @@ namespace EfEtl
         private void LoadActivityTarget()
         {
             EfEtl_Hobby hobby;
-            while ((hobby = _db.EfEtl_Hobby.FirstOrDefault(p => p.ProcessingState == 0)) != null)
+            while ((hobby = _db.EfEtl_Hobby.FirstOrDefault(p => p.ProcessingState == (int)ProcessingState.Default)) != null)
             {
                 var existing = _db.Activities.SingleOrDefault(a => a.HobbyId == hobby.Id);
                 var act = HobbyToActivity.NewActivity(hobby);
@@ -107,7 +118,26 @@ namespace EfEtl
                 {
                     _db.Properties.AddOrUpdate(property);
                 }
-                hobby.ProcessingState = (int)ProcessingState.Processed;
+                hobby.ProcessingState = (int)ProcessingState.InsertedToTarget;
+                _db.SaveChanges();
+            }
+        }
+
+        private void CreateIndividualActivityLinks()
+        {
+            EfEtl_Person person;
+            while ((person = _db.EfEtl_Person.FirstOrDefault(p => p.ProcessingState == (int)ProcessingState.InsertedToTarget)) != null)
+            {
+                var act = _db.Activities.Where(a => a.HobbyId == person.HobbyId).SingleOrDefault();
+                if (act != null)
+                {
+                    var existing = _db.IndividualActivities
+                        .Where(ia => ia.ActivityId == act.Id && ia.IndividualId == person.Id)
+                        .SingleOrDefault();
+                    if (existing == null)
+                        _db.IndividualActivities.Add(new IndividualActivity { ActivityId = act.Id, IndividualId = person.Id.Value });
+                }
+                person.ProcessingState = (int)ProcessingState.ActivityLinkInserted;
                 _db.SaveChanges();
             }
         }

@@ -42,7 +42,7 @@ namespace Etl
 
         public static IEnumerable<Person> CreatePersonRecords(int num)
         {
-            for (var i = 0; i < num; i++)
+            for (var i = 1; i <= num; i++)
             {
                 // TODO: bad data
                 yield return new Person
