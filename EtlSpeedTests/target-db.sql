@@ -144,6 +144,18 @@ create table BulkEtl_Hobby (
     ProcessingState int not null default 0
 );
 
+IF OBJECT_ID('dbo.BulkEtl_Property', 'U') IS NOT NULL DROP TABLE dbo.BulkEtl_Property;
+create table BulkEtl_Property(
+    RowId [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
+
+    -- data fields
+    Id [int],
+    PropertyTypeId [int] NOT NULL,
+    IndividualId [int],
+    ActivityId int,
+    Value nvarchar(20)
+);
+
 
 /*
 These tables aren't needed, but are probably going to be used by many solutions

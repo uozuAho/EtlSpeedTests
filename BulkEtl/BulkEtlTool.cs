@@ -28,6 +28,7 @@ namespace BulkEtl
         public void Run()
         {
             LoadInputTables();
+            LoadTarget();
         }
 
         private void LoadInputTables()
@@ -49,6 +50,7 @@ namespace BulkEtl
 
         private static int FillPersonDataTable(DataTable dt, IEnumerator<Person> people, int maxRows = 10000)
         {
+            // TODO: properties here
             while (people.MoveNext())
             {
                 var person = people.Current;
@@ -127,6 +129,55 @@ namespace BulkEtl
                 foreach (DataColumn col in dt.Columns)
                     sbc.ColumnMappings.Add(new SqlBulkCopyColumnMapping(col.ColumnName, col.ColumnName));
                 sbc.WriteToServer(dt);
+            }
+        }
+
+        private void LoadTarget()
+        {
+            LoadIndividualTarget();
+            LoadActivityTarget();
+        }
+
+        private void LoadIndividualTarget()
+        {
+            const string cmdtext =
+              @"merge into Individual indv
+                using BulkEtl_Person as pers
+                    on indv.Id = pers.Id
+                when matched then
+                    update set
+                        indv.Name = pers.FirstName + ' ' + pers.LastName,
+                        indv.Sex = pers.Gender
+                when not matched by target then
+                    insert (Id, Name, Sex)
+                    values (pers.Id, pers.FirstName + ' ' + pers.LastName, pers.Gender);";
+            using (var con = new SqlConnection(_connstring))
+            {
+                con.Open();
+                var cmd = con.CreateCommand();
+                cmd.CommandText = cmdtext;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void LoadActivityTarget()
+        {
+            const string cmdtext =
+              @"merge into Activity act
+                using BulkEtl_Hobby as hob
+                    on act.HobbyId = hob.Id
+                when matched then
+                    update set
+                        act.Name = hob.Name
+                when not matched by target then
+                    insert (Name, HobbyId)
+                    values (hob.Name, hob.Id);";
+            using (var con = new SqlConnection(_connstring))
+            {
+                con.Open();
+                var cmd = con.CreateCommand();
+                cmd.CommandText = cmdtext;
+                cmd.ExecuteNonQuery();
             }
         }
     }
