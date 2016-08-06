@@ -26,7 +26,7 @@ go
 
 IF OBJECT_ID('dbo.Individual', 'U') IS NOT NULL DROP TABLE dbo.Individual; 
 create table Individual (
-    Id [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
+    Id [int] PRIMARY KEY CLUSTERED NOT NULL,
     Name nvarchar(35) not null,
     Sex nvarchar(1)
 );

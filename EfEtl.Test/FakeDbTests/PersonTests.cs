@@ -44,7 +44,7 @@ namespace EfEtl.Test.FakeDbTests
             var indv = db.Individuals.Single();
             Assert.AreEqual(1, indv.Id);
             Assert.AreEqual("a b", indv.Name);
-            Assert.AreEqual("M", indv.Sex);
+            Assert.AreEqual("M", indv.Sex); 
 
             var act = db.Activities.Single();
             // Assert.AreEqual(1, act.Id); ??

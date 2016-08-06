@@ -15,7 +15,7 @@ namespace EfEtl.Models
     public partial class Property
     {
         public int Id { get; set; }
-        public Nullable<int> PropertyTypeId { get; set; }
+        public int PropertyTypeId { get; set; }
         public Nullable<int> IndividualId { get; set; }
         public Nullable<int> ActivityId { get; set; }
         public string Value { get; set; }
