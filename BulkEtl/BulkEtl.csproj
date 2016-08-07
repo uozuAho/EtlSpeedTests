@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BulkEtlTool.cs" />
+    <Compile Include="InputLoader\HobbyLoader.cs" />
+    <Compile Include="InputLoader\InputUtils.cs" />
+    <Compile Include="InputLoader\PersonLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

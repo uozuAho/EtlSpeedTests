@@ -149,10 +149,9 @@ create table BulkEtl_Property(
     RowId [int] IDENTITY(1,1) PRIMARY KEY CLUSTERED NOT NULL,
 
     -- data fields
-    Id [int],
-    PropertyTypeId [int] NOT NULL,
-    IndividualId [int],
-    ActivityId int,
+    PropertyType nvarchar(20) NOT NULL,
+    PersonId int,
+    HobbyId int,
     Value nvarchar(20)
 );
 
