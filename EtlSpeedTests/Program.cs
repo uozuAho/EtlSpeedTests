@@ -16,9 +16,9 @@ namespace EtlSpeedTests
         {
             Console.WriteLine($"Etl speed tests. Num people: {NumPeople}, num hobbies: {NumHobbies}");
             // efetl tool's connstring is in the etl's app.config
-            //RunImport("EF etl", new EfEtl.EfEtlTool(
-            //    DataGenerator.CreatePersonRecords(NumPeople),
-            //    DataGenerator.CreateHobbyRecords(NumHobbies)));
+            RunImport("EF etl", new EfEtl.EfEtlTool(
+                DataGenerator.CreatePersonRecords(NumPeople),
+                DataGenerator.CreateHobbyRecords(NumHobbies)));
 
             RunImport("Bulk etl", new BulkEtlTool(
                 DataGenerator.CreatePersonRecords(NumPeople),

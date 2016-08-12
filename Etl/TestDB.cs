@@ -17,13 +17,14 @@ namespace EfEtl.Test
                 var cmd = con.CreateCommand();
                 cmd.CommandText =
                    @"delete from Property;
-                     delete from Individual;
-                     delete from Activity;
-                     truncate table IndividualActivity;
-                     truncate table EfEtl_Person;
-                     truncate table EfEtl_Hobby;
-                     truncate table BulkEtl_Person;
-                     truncate table BulkEtl_Hobby;";
+                    truncate table IndividualActivity;
+                    delete from Individual;
+                    delete from Activity;
+                    truncate table EfEtl_Person;
+                    truncate table EfEtl_Hobby;
+                    truncate table BulkEtl_Person;
+                    truncate table BulkEtl_Hobby;
+                    truncate table BulkEtl_Property;";
                 cmd.ExecuteNonQuery();
                 con.Close();
             }

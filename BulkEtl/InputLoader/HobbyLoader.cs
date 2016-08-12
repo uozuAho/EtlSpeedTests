@@ -8,29 +8,52 @@ namespace BulkEtl.InputLoader
     {
         public static void Load(IEnumerable<Hobby> hobbies, string connstring)
         {
-            var dt = CreateBulkEtlHobbyTable();
-            var hobbyEn = hobbies.GetEnumerator();
-            while (FillHobbyDataTable(dt, hobbyEn) > 0)
+            const int bulkCopyThreshold = 10000;
+            var hobbiesDt = CreateBulkEtlHobbyTable();
+            var hobbyPropDt = InputUtils.CreateBulkEtlPropertyDataTable();
+            foreach (var hobby in hobbies)
             {
-                InputUtils.BulkCopyToDb(dt, connstring);
-                dt.Clear();
+                AddHobbyRow(hobbiesDt, hobby);
+                AddHobbyPropertyRows(hobbyPropDt, hobby);
+                InputUtils.TransferIfOverThresh(hobbiesDt, connstring, bulkCopyThreshold);
+                InputUtils.TransferIfOverThresh(hobbyPropDt, connstring, bulkCopyThreshold);
             }
+            // write remaining rows to database
+            InputUtils.TransferIfOverThresh(hobbiesDt, connstring, 1);
+            InputUtils.TransferIfOverThresh(hobbyPropDt, connstring, 1);
         }
 
-        private static int FillHobbyDataTable(DataTable dt, IEnumerator<Hobby> hobbies, int maxRows = 10000)
+        private static void AddHobbyRow(DataTable dt, Hobby hobby)
         {
-            while (hobbies.MoveNext())
-            {
-                var hobby = hobbies.Current;
-                var row = dt.NewRow();
-                row["Id"] = hobby.Id;
-                row["Name"] = hobby.Name;
-                row["Type"] = hobby.Type;
-                dt.Rows.Add(row);
-                if (dt.Rows.Count == maxRows)
-                    break;
-            }
-            return dt.Rows.Count;
+            var row = dt.NewRow();
+            row["Id"] = hobby.Id;
+            row["Name"] = hobby.Name;
+            row["Type"] = hobby.Type;
+            dt.Rows.Add(row);
+        }
+
+        private static void AddHobbyPropertyRows(DataTable dt, Hobby hobby)
+        {
+            AddHobbyIdProperty(dt, hobby);
+            AddHobbyTypeProperty(dt, hobby);
+        }
+
+        private static void AddHobbyIdProperty(DataTable dt, Hobby hobby)
+        {
+            var row = dt.NewRow();
+            row["PropertyType"] = "Hobby Id";
+            row["HobbyId"] = hobby.Id;
+            row["Value"] = hobby.Id;
+            dt.Rows.Add(row);
+        }
+
+        private static void AddHobbyTypeProperty(DataTable dt, Hobby hobby)
+        {
+            var row = dt.NewRow();
+            row["PropertyType"] = "Hobby Type";
+            row["HobbyId"] = hobby.Id;
+            row["Value"] = hobby.Type;
+            dt.Rows.Add(row);
         }
 
         private static DataTable CreateBulkEtlHobbyTable()

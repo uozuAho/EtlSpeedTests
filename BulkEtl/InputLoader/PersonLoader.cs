@@ -54,9 +54,9 @@ namespace BulkEtl.InputLoader
         private static void AddPhProperty(DataTable dt, Person person)
         {
             var row = dt.NewRow();
-            row["PropertyType"] = "Ph";
+            row["PropertyType"] = "Ph.";
             row["PersonId"] = person.Id;
-            row["Value"] = person.Address;
+            row["Value"] = person.Ph;
             dt.Rows.Add(row);
         }
 

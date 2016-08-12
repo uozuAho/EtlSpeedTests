@@ -41,6 +41,9 @@ namespace BulkEtl
         {
             LoadIndividualTarget();
             LoadActivityTarget();
+            // TODO: LoadIndividualActivityTarget
+            LoadIndividualPropertyTarget();
+            LoadActivityPropertyTarget();
         }
 
         private void LoadIndividualTarget()
@@ -77,6 +80,66 @@ namespace BulkEtl
                 when not matched by target then
                     insert (Name, HobbyId)
                     values (hob.Name, hob.Id);";
+            using (var con = new SqlConnection(_connstring))
+            {
+                con.Open();
+                var cmd = con.CreateCommand();
+                cmd.CommandText = cmdtext;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void LoadIndividualPropertyTarget()
+        {
+            const string cmdtext =
+              @"with indvProp as (
+                    select
+                        pt.Id as PropertyTypeId,
+                        bp.PersonId as IndividualId,
+                        bp.Value as Value
+                    from BulkEtl_Property bp
+                    join PropertyType pt on bp.PropertyType = pt.Value
+                    where bp.PersonId is not null
+                )
+                merge into Property dest
+                using indvProp as source
+                    on  source.IndividualId = dest.IndividualId
+                    and source.PropertyTypeId = dest.PropertyTypeId
+                when matched then
+                    update set dest.Value = source.Value
+                when not matched by target then
+                    insert (IndividualId, PropertyTypeId, Value)
+	                values (source.IndividualId, source.PropertyTypeId, source.Value);";
+            using (var con = new SqlConnection(_connstring))
+            {
+                con.Open();
+                var cmd = con.CreateCommand();
+                cmd.CommandText = cmdtext;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void LoadActivityPropertyTarget()
+        {
+            const string cmdtext =
+                @"with hobbyProp as (
+                    select
+                        pt.Id as PropertyTypeId,
+                        act.Id as ActivityId,
+                        bp.Value as Value
+                    from BulkEtl_Property bp
+                    join PropertyType pt on bp.PropertyType = pt.Value
+	                join Activity act on act.HobbyId = bp.HobbyId
+                )
+                merge into Property dest
+                using hobbyProp as source
+                    on  source.ActivityId = dest.ActivityId
+                    and source.PropertyTypeId = dest.PropertyTypeId
+                when matched then
+                    update set dest.Value = source.Value
+                when not matched by target then
+                    insert (ActivityId, PropertyTypeId, Value)
+	                values (source.ActivityId, source.PropertyTypeId, source.Value);";
             using (var con = new SqlConnection(_connstring))
             {
                 con.Open();
