@@ -10,7 +10,7 @@ namespace EtlSpeedTests
     {
         const int NumPeople = 100;
         const int NumHobbies = 50;
-        const string TargetDbConnString = @"Data Source=localhost\sqlexpress2014;Initial Catalog=EtlSpeedTests; Integrated Security=SSPI;";
+        const string TargetDbConnString = @"Data Source=localhost\sql2014;Initial Catalog=EtlSpeedTests; Integrated Security=SSPI;";
 
         static void Main(string[] args)
         {
@@ -20,10 +20,10 @@ namespace EtlSpeedTests
                 DataGenerator.CreatePersonRecords(NumPeople),
                 DataGenerator.CreateHobbyRecords(NumHobbies)));
 
-            RunImport("Bulk etl", new BulkEtlTool(
-                DataGenerator.CreatePersonRecords(NumPeople),
-                DataGenerator.CreateHobbyRecords(NumHobbies),
-                TargetDbConnString));
+            //RunImport("Bulk etl", new BulkEtlTool(
+            //    DataGenerator.CreatePersonRecords(NumPeople),
+            //    DataGenerator.CreateHobbyRecords(NumHobbies),
+            //    TargetDbConnString));
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
@@ -32,7 +32,7 @@ namespace EtlSpeedTests
         private static void RunImport(string name, IEtl etl)
         {
             Console.WriteLine($"{name}: clearing test db");
-            TestDb.Clear();
+            TestDb.Clear(TargetDbConnString);
             Console.WriteLine($"{name}: start");
             var sw = Stopwatch.StartNew();
             etl.Run();

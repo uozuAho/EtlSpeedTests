@@ -4,14 +4,12 @@ namespace EfEtl.Test
 {
     public class TestDb
     {
-        private const string ConnString = @"Data Source=localhost\sqlexpress2014;Initial Catalog=EtlSpeedTests; Integrated Security=SSPI;";
-
         /// <summary>
         /// Clear all but required data from the test db.
         /// </summary>
-        public static void Clear()
+        public static void Clear(string connstring)
         {
-            using (var con = new SqlConnection(ConnString))
+            using (var con = new SqlConnection(connstring))
             {
                 con.Open();
                 var cmd = con.CreateCommand();
